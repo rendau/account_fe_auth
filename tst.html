@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script>
+    var popup = null
+
+    window.addEventListener("message", function (event) {
+      if (event.source === popup) {
+        try {
+          let data = JSON.parse(event.data || '{}')
+          console.log('MSG', data)
+        } catch (e) {
+          console.error(e)
+        }
+
+        if (popup) {
+          popup.close()
+          popup = null
+        }
+      }
+    });
+
+    function onClick () {
+      popup = window.open('http://localhost:8080/')
+    }
+  </script>
+</head>
+<body>
+<div style="text-align: center; padding-top: 70px">
+  <div style="display: inline-block; vertical-align: middle">
+    <button onclick="onClick()">click</button>
+  </div>
+</div>
+</body>
+</html>

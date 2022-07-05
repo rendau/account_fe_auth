@@ -1,0 +1,32 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    env:
+      OWNER: rendau
+      IMAGE: account_fe_auth
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set-up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.13'
+
+      - name: npm install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $ --password-stdin
+
+      - run: docker build -t ghcr.io/$OWNER/$IMAGE:latest .
+
+      - run: docker push ghcr.io/$OWNER/$IMAGE:latest
