@@ -63,7 +63,8 @@
                    :error="!!phoneErr"
                    :error-message="phoneErr"
                    :hide-bottom-space="!phoneErr"
-                   style="min-width: 280px"/>
+                   style="min-width: 280px"
+                   @keyup.enter.prevent="onSubmit"/>
         </div>
 
         <template v-if="showSmsInput">
@@ -77,7 +78,8 @@
                      :error="!!smsCodeErr"
                      :error-message="smsCodeErr"
                      :hide-bottom-space="!smsCodeErr"
-                     style="min-width: 280px"/>
+                     style="min-width: 280px"
+                     @keyup.enter.prevent="onSubmit"/>
           </div>
 
           <!-- resend btn -->
